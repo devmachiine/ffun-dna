@@ -6,5 +6,6 @@
     console.log('-'.repeat(40))
 
     await run('./tests/nn', { label: 'nn' })
+    await run('./tests/operations', { label: 'operations' })
 
 })()
