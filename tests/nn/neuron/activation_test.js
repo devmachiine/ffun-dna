@@ -19,6 +19,16 @@ module.exports = async ({ test, assert, affirm }) => {
             assert(true, expected_positive.every(n => n > 0))
             assert(true, expected_negative.every(n => n < 0))
         })
+        , test("activation output not rounded for small and large numbers", async () => {
+            const smallest_output = await activation(Number.MIN_VALUE)
+            const max_output = await activation(Number.MAX_SAFE_INTEGER)
+
+            assert(true, smallest_output > 0)
+            assert(true, max_output < 1)
+
+            assert(true, smallest_output < Number.MIN_VALUE * 2)
+            assert(true, max_output > 1 - (1 / 1e15))
+        })
     ]
 
     return [activation_tests]
