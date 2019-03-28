@@ -24,6 +24,18 @@ module.exports = async ({ test, assert, affirm }) => {
             const tens = await zip(up_to_n, n_to_1, (a, b) => a + b)
             affirm(tens, (tens) => tens.every(i => i === n + 1))
         })
+        , test("function gives tuple in order (a,b) to join function", async () => {
+            const a_small = 'a'.repeat(2).split('')
+            const z_large = 'z'.repeat(10).split('')
+            const a_map_z = await zip(a_small, z_large, (a, z) => a + '2' + z)
+
+            const a_large = 'a'.repeat(10).split('')
+            const z_small = 'z'.repeat(2).split('')
+            const z_map_a = await zip(a_large, z_small, (a, z) => a + '2' + z)
+
+            assert(true, a_map_z.every(az => az === 'a2z'))
+            assert(true, z_map_a.every(az => az === 'a2z'))
+        })
     ]
 
     return [zip_tests]
