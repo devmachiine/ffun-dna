@@ -6,10 +6,16 @@ module.exports = async ({ test, assert, affirm }) => {
 
     const range = ff('./lib/operations/array/range.js')
 
+    const match = (a, b) => assert(JSON.stringify(a), JSON.stringify(b))
+
     const zip_tests = [
         test("empty lists return empty", async () => {
             const empty = await zip([], [])
             assert(0, empty.length)
+        })
+        , test("default zip combines with [a,b]", async () => {
+            const zipped = await zip([1, 2, 3], [4, 5, 6])
+            match(zipped, [[1, 4], [2, 5], [3, 6]])
         })
         , test("smallest array size mapped", async () => {
             const a = await range(3)
